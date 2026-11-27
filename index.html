@@ -104,8 +104,24 @@
 <article class="chem-card"><h3>Сгорание аммиака</h3><p><b>Дано:</b> за 1 мин концентрация NH₃ уменьшилась на 1,2 моль/л; C₀(N₂)=0. <b>Найти:</b> скорость расходования NH₃ и концентрацию N₂.</p><div class="chem-work">4NH₃ + 3O₂ → 2N₂ + 6H₂O<br>v(NH₃)=1,2/1=1,2 моль/(л·мин)<br>ΔC(N₂)=1,2·2/4=0,6 моль/л<br>C(N₂)=0+0,6=0,6 моль/л</div><div class="chem-answer"><strong>Ответ:</strong> v(NH₃)=1,2 моль/(л·мин); C(N₂)=0,6 моль/л.</div></article>
 <article class="chem-card"><h3>Дополнительное задание: кремний и кислород</h3><p>Si + O₂ → SiO₂. Увеличение концентрации кислорода в 3 раза увеличивает скорость примерно в 3 раза. Измельчение кремния ускоряет реакцию за счёт увеличения площади поверхности; измельчение SiO₂ (продукта) скорость прямой реакции не увеличивает.</p></article>
 </section></main><script>
-function showSubject(n){document.querySelectorAll('.subjectPanel').forEach(p=>p.classList.toggle('active',p.id==='subject-'+n));document.querySelectorAll('.subject-button').forEach(b=>b.setAttribute('aria-selected',String(b.id===(n==='bio'?'subjectBioTab':'subjectChemTab')));}
-function showVariant(n){const root=document.getElementById('subject-bio');root.querySelectorAll('.variant').forEach(s=>s.classList.toggle('active',s.id==='variant'+n));root.querySelectorAll('.tab').forEach(b=>b.setAttribute('aria-selected',String(b.id==='tab'+n));}
-function showChemVariant(n){const root=document.getElementById('subject-chem');root.querySelectorAll('.chemVariant').forEach(s=>s.classList.toggle('active',s.id==='chem'+n));root.querySelectorAll('.chem-tab').forEach(b=>b.setAttribute('aria-selected',String(b.id==='ctab'+n));}
-document.addEventListener('keydown',e=>{if(e.key==='ArrowRight'){const c=document.getElementById('subject-chem');if(c.classList.contains('active')){const cur=Number(c.querySelector('.chem-tab[aria-selected="true"]').id.slice(4));const nums=[1,2,3,4,5,6,7,8];showChemVariant(nums[Math.min(nums.length-1,nums.indexOf(cur)+1)]);}else{const cur=Number(document.querySelector('#subject-bio .tab[aria-selected="true"]').id.slice(3));showVariant(cur===1?2:cur===2?4:1);}}if(e.key==='ArrowLeft'){const c=document.getElementById('subject-chem');if(c.classList.contains('active')){const cur=Number(c.querySelector('.chem-tab[aria-selected="true"]').id.slice(4));const nums=[1,2,3,4,5,6,7,8];showChemVariant(nums[Math.max(0,nums.indexOf(cur)-1)]);}else{const cur=Number(document.querySelector('#subject-bio .tab[aria-selected="true"]').id.slice(3));showVariant(cur===4?2:cur===2?1:4);}}});
+function showSubject(n) {
+  var bio = n === 'bio';
+  document.getElementById('subject-bio').classList.toggle('active', bio);
+  document.getElementById('subject-chem').classList.toggle('active', !bio);
+  document.getElementById('subjectBioTab').setAttribute('aria-selected', bio ? 'true' : 'false');
+  document.getElementById('subjectChemTab').setAttribute('aria-selected', bio ? 'false' : 'true');
+}
+function showVariant(n) {
+  [1,2,4].forEach(function(i) {
+    document.getElementById('variant'+i).classList.toggle('active',i===n);
+    document.getElementById('tab'+i).setAttribute('aria-selected',i===n?'true':'false');
+  });
+}
+function showChemVariant(n) {
+  n = Number(n);
+  [1,2,3,4,5,6,7,8].forEach(function(i) {
+    document.getElementById('chem'+i).classList.toggle('active',i===n);
+    document.getElementById('ctab'+i).setAttribute('aria-selected',i===n?'true':'false');
+  });
+}
 </script></body></html>
